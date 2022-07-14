@@ -28,14 +28,14 @@ class UserView(APIView):
             data['user'] = self.get_object(offset=int(request.GET.get(
                 'offset', 0)), limit=int(request.GET.get('limit', 5)), search=request.GET.get('search', None), sort=request.GET.get('sort', 'id'))
             data['links'] = {
-                'next': 'http://127.0.0.1:8000/api/users?'+'page='+str(page+1),
+                'next': request.build_absolute_uri()+'?'+'page='+str(page+1),
             }
         else:
             data['user'] = self.get_object(
                 offset=page*5-5, limit=page*5, search=request.GET.get('search', None))
             data['links'] = {
-                'next': 'http://127.0.0.1:8000/api/users?'+'page='+str(page+1),
-                'previous': 'http://127.0.0.1:8000/api/users?'+'page='+str(page-1),
+                'next': request.build_absolute_uri()+'?'+'page='+str(page+1),
+                'previous': request.build_absolute_uri()+'?'+'page='+str(page-1),
             }
         return data
 
