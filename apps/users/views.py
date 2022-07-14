@@ -15,10 +15,8 @@ def home(request):
 
 class UserView(APIView):
     def get_object(self, offset, limit, search, sort=None):
-        print(offset, limit, search, sort)
         if search:
             return User.objects.filter(Q(first_name=search) | Q(last_name=search)).order_by(sort)[offset:limit]
-        print(User.objects.all()[offset:limit])
         return User.objects.all().exclude(is_staff=True).order_by(sort)[offset:limit]
 
     def get_paginate(self, page, request):
@@ -42,7 +40,6 @@ class UserView(APIView):
         return data
 
     def get(self, request):
-        print('hai')
         page = int(request.GET.get('page', 1))
         if page*5-5 > User.objects.count():
             return Response(status=404)
@@ -68,7 +65,6 @@ class UserDetailsView(APIView):
                 return User.objects.get(id=pk)
             except:
                 raise Http404
-        print(search)
         try:
             return User.objects.get(email__icontains=search)
         except:

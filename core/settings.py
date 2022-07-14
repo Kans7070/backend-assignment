@@ -94,6 +94,7 @@ DATABASES = {
         'USER': config('POSTGRES_USER'),
         'PASSWORD': config('POSTGRES_PASSWORD'),
         'HOST': config('POSTGRES_HOST'),
+        'PORT': config('POSTGRES_PORT'),
     }
 }
 
@@ -134,9 +135,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR /'static',
-]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 MEDIA_URL = '/media/'
